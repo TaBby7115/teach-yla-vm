@@ -398,6 +398,32 @@ int yla_vm_do_command_internal(yla_vm *vm, yla_cop_type cop)
 				return 0;
 			}
 			break;
+		case CSET:
+			if(!yla_vm_stack_push_set(vm)) {
+				return 0;
+			}
+			break;
+
+		case CSETE:
+			if (!yla_vm_stack_pull(vm, &op1)) {
+				return 0;
+			}
+			if(!yla_vm_stack_set_check_exist(vm, &op1)) {
+				return 0;
+			}
+			break;
+
+		case CSETI:
+			if(!yla_vm_stack_set_intersection(vm)) {
+				return 0;
+			}
+			break;
+
+		case CSETS:
+			if(!yla_vm_stack_set_sum(vm)) {
+				return 0;
+			}
+			break;
 
 		case CHALT:
 			return -1;
